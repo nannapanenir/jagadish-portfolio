@@ -1,0 +1,9 @@
+---
+import { profile } from '../data/profile';
+---
+<section id="work" class="wrap work" aria-labelledby="work-title">
+  <h2 id="work-title" class="h-section">{profile.ui.workTitle}</h2>
+  <div class="work__grid">
+    {profile.work.map((w) => <p><strong>{w.title}</strong> {w.body}</p>)}
+  </div>
+</section>

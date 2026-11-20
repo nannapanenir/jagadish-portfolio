@@ -1,0 +1,24 @@
+---
+import { profile } from '../data/profile';
+---
+<section id="route" class="route" aria-labelledby="route-title">
+  <div class="wrap route__inner">
+    <h2 id="route-title" class="route__title">{profile.ui.routeTitle}</h2>
+    <div class="route__scroll">
+      <div class="route__line">
+        <div class="rails route__track" aria-hidden="true"></div>
+        <ol class="stops" style={`--stops:${profile.stops.length}`}>
+          {profile.stops.map((s) => (
+            <li class:list={['stop', { 'stop--current': s.current }]} aria-current={s.current ? 'step' : undefined}>
+              <span class="stop__marker" aria-hidden="true"></span>
+              <span class="stop__years">{s.years}</span>
+              <span class="stop__org">{s.org}</span>
+              <span class="stop__role">{s.role}<br>{s.place}</span>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </div>
+    <p class="route__edu">{profile.education.join(' ')}</p>
+  </div>
+</section>

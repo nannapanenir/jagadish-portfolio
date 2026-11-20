@@ -1,0 +1,14 @@
+---
+import { profile } from '../data/profile';
+const [first, ...rest] = profile.name.split(' ');
+---
+<header id="top" class="wrap hero">
+  <h1 class="hero__name">{first}<br>{rest.join(' ')}</h1>
+  <div class="hero__row">
+    <p class="hero__lede">{profile.lede}</p>
+    <div class="hero__ctas">
+      <a class="btn" href={`mailto:${profile.email}`}>{profile.ui.emailButton}</a>
+      <a class="textlink" href={profile.resumeUrl}>{profile.ui.resumeLink}</a>
+    </div>
+  </div>
+</header>

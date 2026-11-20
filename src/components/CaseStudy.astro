@@ -1,0 +1,42 @@
+---
+import { profile } from '../data/profile';
+const cs = profile.caseStudy;
+const { ui } = profile;
+const parts = [cs.start, cs.change, cs.result];
+const hasMetrics = !!cs.metrics?.length;
+---
+<section id={cs.id} class="band-white case" aria-labelledby="case-title">
+  <div class="wrap case__inner">
+    <h2 id="case-title" class="h-section case__title">{cs.title}</h2>
+    <div class="case__body">
+      <dl class="facts">
+        {cs.facts.map((f) => <div><dt>{f.label}</dt><dd>{f.value}</dd></div>)}
+      </dl>
+      <div class="story">
+        {parts.map((p) => <p><strong>{p.lead}</strong> {p.text}</p>)}
+        {cs.diagram && (
+          <img class="diagram" src={cs.diagram.src} alt={cs.diagram.alt} width={cs.diagram.width} height={cs.diagram.height} loading="lazy" decoding="async" />
+        )}
+        {hasMetrics && (
+          <dl class="metrics">
+            {cs.metrics!.map((m) => <div><dt>{m.label}</dt><dd>{m.value}</dd></div>)}
+          </dl>
+        )}
+        {!cs.diagram && !hasMetrics && <div class="placeholder">{ui.placeholders.diagram}</div>}
+      </div>
+    </div>
+    <div class="systems">
+      <h3 class="systems__title">{ui.systemsTitle}</h3>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th scope="col" style="width:40%">{ui.systemsHead[0]}</th><th scope="col">{ui.systemsHead[1]}</th></tr></thead>
+          <tbody>
+            {profile.systems.map((s) => (
+              <tr><td>{s.name}</td><td>{s.summary || ui.placeholders.systemSummary}</td></tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>

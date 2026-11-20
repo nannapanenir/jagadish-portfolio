@@ -1,0 +1,27 @@
+---
+import Base from '../layouts/Base.astro';
+import Nav from '../components/Nav.astro';
+import Hero from '../components/Hero.astro';
+import RouteMap from '../components/RouteMap.astro';
+import CaseStudy from '../components/CaseStudy.astro';
+import WorkAreas from '../components/WorkAreas.astro';
+import Contact from '../components/Contact.astro';
+import Footer from '../components/Footer.astro';
+import { missingContent } from '../data/profile';
+
+const missing = missingContent();
+if (missing.length) {
+  console.warn(`\n[profile] ${missing.length} placeholder(s) still empty in src/data/profile.ts:\n  - ${missing.join('\n  - ')}\n`);
+}
+---
+<Base>
+  <Nav />
+  <main>
+    <Hero />
+    <RouteMap />
+    <CaseStudy />
+    <WorkAreas />
+    <Contact />
+  </main>
+  <Footer />
+</Base>

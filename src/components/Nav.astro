@@ -1,0 +1,13 @@
+---
+import { profile } from '../data/profile';
+const { nav } = profile.ui;
+---
+<nav class="wrap nav" aria-label="Main">
+  <a class="nav__name" href="#top">{profile.name}</a>
+  <div class="nav__links">
+    <a href="#route">{nav.experience}</a>
+    <a href={`#${profile.caseStudy.id}`}>{nav.caseStudy}</a>
+    <a href="#work">{nav.work}</a>
+    <a class="is-contact" href="#contact">{nav.contact}</a>
+  </div>
+</nav>

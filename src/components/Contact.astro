@@ -1,0 +1,26 @@
+---
+import { profile } from '../data/profile';
+const { ui } = profile;
+---
+<section id="contact" class="band-white contact" aria-labelledby="contact-title">
+  <div class="wrap contact__inner">
+    <div class="contact__intro">
+      <h2 id="contact-title" class="h-section">{ui.contactTitle}</h2>
+      <p>{profile.contactLine}</p>
+      <div class="contact__ctas">
+        <a class="btn" href={`mailto:${profile.email}`}>{ui.emailButton}</a>
+        <a class="textlink" href={profile.resumeUrl}>{ui.resumeLink}</a>
+      </div>
+    </div>
+    <dl class="details">
+      <div><dt>{ui.details.email}</dt><dd><a href={`mailto:${profile.email}`}>{profile.email}</a></dd></div>
+      <div><dt>{ui.details.linkedin}</dt><dd>
+        {profile.linkedin
+          ? <a href={profile.linkedin} rel="me">{profile.linkedin.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '')}</a>
+          : <span class="is-placeholder">{ui.placeholders.linkedin}</span>}
+      </dd></div>
+      <div><dt>{ui.details.location}</dt><dd>{profile.location}</dd></div>
+      <div><dt>{ui.details.openTo}</dt><dd>{profile.openTo || ui.placeholders.openTo}</dd></div>
+    </dl>
+  </div>
+</section>

@@ -1,0 +1,20 @@
+---
+import { profile } from '../data/profile';
+const { nav } = profile.ui;
+const year = new Date().getFullYear();
+---
+<footer class="band-white">
+  <div class="wrap terminus" aria-hidden="true">
+    <div class="rails"></div>
+    <div class="terminus__stop"></div>
+  </div>
+  <div class="wrap footer">
+    <span>© {year} {profile.name}</span>
+    <nav aria-label="Footer">
+      <a href="#route">{nav.experience}</a>
+      <a href={`#${profile.caseStudy.id}`}>{nav.caseStudy}</a>
+      <a href="#work">{nav.work}</a>
+      <a class="is-top" href="#top">{nav.backToTop}</a>
+    </nav>
+  </div>
+</footer>
