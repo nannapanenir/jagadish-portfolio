@@ -1,0 +1,430 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Jagadish Pampatwar — Enterprise Java & AI Architect</title>
+<meta name="description" content="Jagadish Pampatwar, enterprise Java and AI solutions architect in Jacksonville, Florida. 19 years modernizing enterprise platforms, including about $1M saved on the Transflo modernization at CSX.">
+<meta name="theme-color" content="#0f1012">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&family=DM+Sans:opsz,wght@9..40,400;9..40,500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0f1012; --bg2:#141518; --line:rgba(240,238,232,.10); --line2:rgba(240,238,232,.18);
+  --ink:#f0eee8; --dim:#a19e97; --faint:#6f6c66;
+  --acc:#f2c275;        /* signal amber */
+  --acc-ink:#1c1609;
+  --sand:#ece3d3; --sand-ink:#2b2418; --sand-dim:#6b5f4b;
+  --steel:#d3dbe6; --steel-ink:#1d2533; --steel-dim:#56627a;
+  --display:"Manrope", system-ui, sans-serif;
+  --text:"DM Sans", system-ui, sans-serif;
+  --ease:cubic-bezier(.22,1,.36,1);
+  --max:1180px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.6 var(--text);-webkit-font-smoothing:antialiased}
+h1,h2,h3,p,ul,ol,dl,dd,figure{margin:0} ul,ol{padding:0;list-style:none}
+a{color:inherit;text-decoration:none}
+::selection{background:var(--acc);color:var(--acc-ink)}
+:focus-visible{outline:2px solid var(--acc);outline-offset:3px;border-radius:4px}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 40px}
+@media (max-width:640px){.wrap{padding:0 22px}}
+.label{font:500 12px/1.4 var(--text);letter-spacing:.12em;text-transform:uppercase;color:var(--dim)}
+.label b{color:var(--acc);font-weight:500}
+.dim{color:var(--dim)}
+.arrow-link{display:inline-flex;align-items:center;gap:6px;font-size:15px;font-weight:500;background:linear-gradient(currentColor,currentColor) 0 100%/0 1px no-repeat;padding-bottom:2px;transition:background-size .35s var(--ease)}
+.arrow-link:hover{background-size:100% 1px}
+.arrow-link span{display:inline-block;transition:transform .3s var(--ease)}
+.arrow-link:hover span{transform:translate(2px,-2px)}
+
+/* headings: two-tone, the second line in the dimmer tone */
+.h2{font:500 clamp(30px,3.2vw,44px)/1.12 var(--display);letter-spacing:-.035em}
+.h2 .dim{display:block}
+
+/* reveal: one gentle fade-up, content visible without JS */
+.js .rv{opacity:0;transform:translateY(18px);transition:opacity .8s var(--ease),transform .9s var(--ease)}
+.js .rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.js .rv{opacity:1;transform:none;transition:none}}
+
+/* ---------- header ---------- */
+.top{position:sticky;top:0;z-index:20;background:rgba(15,16,18,.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid transparent;transition:border-color .3s}
+.top.scrolled{border-bottom-color:var(--line)}
+.top__in{height:72px;display:flex;align-items:center;gap:32px}
+.logo{font:600 26px/1 var(--display);letter-spacing:-.06em}
+.logo i{font-style:normal;color:var(--acc)}
+.top nav{margin-left:auto;display:flex;gap:28px;font-size:14px}
+.top nav a{color:var(--dim);transition:color .2s}.top nav a:hover{color:var(--ink)}
+.talk{color:var(--acc);font-size:14px;font-weight:500}
+@media (max-width:760px){.top nav{display:none}.talk{margin-left:auto}}
+
+/* ---------- hero ---------- */
+.hero{padding:56px 0 0}
+.hero__meta{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+.open{display:inline-flex;align-items:center;gap:8px;font-size:13px;color:var(--dim)}
+.open::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--acc)}
+.hero__grid{display:grid;grid-template-columns:7fr 5fr;gap:64px;align-items:center;padding:96px 0 104px}
+.hero__kick{font-size:16px;color:var(--dim)}
+.hero h1{font:500 clamp(46px,6vw,80px)/1.02 var(--display);letter-spacing:-.05em;margin-top:22px}
+.hero h1 em{font-style:normal;color:var(--acc)}
+.hero__lede{font-size:18px;line-height:1.65;color:var(--dim);max-width:46ch;margin-top:28px}
+.hero__lede b{color:var(--ink);font-weight:500}
+.hero__cta{display:flex;align-items:center;gap:28px;margin-top:40px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:22px;height:50px;padding:0 22px;border-radius:6px;background:var(--acc);color:var(--acc-ink);font-weight:500;font-size:15px;transition:transform .25s var(--ease),background .2s}
+.btn:hover{background:#f6cf8e}.btn:active{transform:scale(.98)}
+.btn span{transition:transform .3s var(--ease)}.btn:hover span{transform:translate(2px,2px)}
+
+/* the "how I architect" card */
+.card{border:1px solid var(--line2);border-radius:14px;background:linear-gradient(180deg,rgba(255,255,255,.035),rgba(255,255,255,.015))}
+.card__head{display:flex;justify-content:space-between;align-items:center;padding:18px 22px;border-bottom:1px solid var(--line)}
+.card__head .count{font:500 12px/1 var(--text);color:var(--acc);letter-spacing:.08em;font-variant-numeric:tabular-nums}
+.card__intro{display:flex;gap:18px;align-items:center;padding:26px 22px}
+.glyph{flex:none;width:46px;height:46px;border-radius:10px;display:grid;place-items:center;background:rgba(242,194,117,.12);color:var(--acc)}
+.glyph svg{width:22px;height:22px}
+.card__intro p{font:500 18px/1.35 var(--display);letter-spacing:-.02em}
+.rows{border-top:1px solid var(--line)}
+.row{display:grid;grid-template-columns:32px 1fr auto;gap:12px;align-items:center;padding:16px 22px;border-bottom:1px solid var(--line);transition:background .4s var(--ease)}
+.row .n{font-size:12px;color:var(--faint);font-variant-numeric:tabular-nums}
+.row h3{font:500 15px/1.3 var(--display);letter-spacing:-.01em}
+.row p{font-size:13px;color:var(--dim);margin-top:2px}
+.row .tag{font:500 11px/1 var(--text);letter-spacing:.06em;padding:7px 8px;border-radius:5px;border:1px solid var(--line2);color:var(--dim);transition:all .4s var(--ease)}
+.row.on{background:rgba(242,194,117,.06)}
+.row.on .n{color:var(--acc)}
+.row.on .tag{border-color:rgba(242,194,117,.6);color:var(--acc)}
+.card__foot{display:flex;justify-content:space-between;align-items:center;padding:16px 22px}
+@media (max-width:960px){.hero__grid{grid-template-columns:1fr;gap:48px;padding:64px 0 80px}}
+
+.hero__bar{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;padding:22px 0;border-top:1px solid var(--line);font-size:14px;color:var(--dim)}
+.hero__bar nav{display:flex;gap:24px}
+
+/* ---------- stack strip ---------- */
+.strip{border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.strip__in{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:26px 0;flex-wrap:wrap}
+.strip ul{display:flex;gap:44px;flex-wrap:wrap;font:500 15px/1 var(--display);letter-spacing:-.01em}
+.strip .plus{font-style:italic;color:var(--dim);font-size:14px}
+
+/* ---------- sections ---------- */
+.sec{padding:130px 0}
+.sec__head{display:flex;justify-content:space-between;align-items:flex-end;gap:32px;flex-wrap:wrap;margin-top:18px}
+.sec__head > p{max-width:34ch;color:var(--dim);font-size:16px}
+
+/* work cards */
+.work{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:64px}
+.case{border-radius:14px;overflow:hidden;border:1px solid var(--line);background:var(--bg2);display:flex;flex-direction:column;transition:transform .4s var(--ease),border-color .3s}
+.case:hover{transform:translateY(-3px);border-color:var(--line2)}
+.case__top{padding:28px;min-height:330px;display:flex;flex-direction:column}
+.case--sand .case__top{background:var(--sand);color:var(--sand-ink)}
+.case--steel .case__top{background:var(--steel);color:var(--steel-ink)}
+.case__lab{display:flex;justify-content:space-between;font:500 12px/1 var(--text);letter-spacing:.1em;text-transform:uppercase}
+.case__big{font:500 clamp(28px,2.6vw,36px)/1.12 var(--display);letter-spacing:-.035em;margin-top:44px}
+.case--sand .case__big span{color:var(--sand-dim)}
+.case--steel .case__big span{color:var(--steel-dim)}
+.flow{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:auto;padding-top:34px}
+.flow b{font:500 13px/1 var(--text);padding:9px 11px;border-radius:5px;border:1px solid currentColor;opacity:.5;transition:all .5s var(--ease)}
+.flow i{font-style:normal;opacity:.5}
+.flow b.lit{opacity:1}
+.flow b.end.lit{background:currentColor}
+.case--sand .flow b.end.lit{color:var(--sand-ink)} .case--sand .flow b.end.lit span{color:var(--sand)}
+.case--steel .flow b.end.lit span{color:var(--steel)}
+.case__name{margin-top:18px;font:500 12px/1 var(--text);letter-spacing:.1em;text-transform:uppercase}
+.case__body{padding:28px;display:flex;flex-direction:column;gap:14px;flex:1}
+.case__body h3{font:500 22px/1.25 var(--display);letter-spacing:-.025em}
+.case__body p{color:var(--dim);font-size:15.5px}
+.tags{display:flex;flex-wrap:wrap;gap:8px}
+.tags span{font-size:12.5px;padding:6px 10px;border-radius:5px;border:1px solid var(--line2);color:#cfccc5}
+details.more{border-top:1px solid var(--line);margin-top:auto;padding-top:16px}
+details.more summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;font-size:15px;font-weight:500}
+details.more summary::-webkit-details-marker{display:none}
+details.more summary i{font-style:normal;transition:transform .3s var(--ease)}
+details.more[open] summary i{transform:rotate(45deg)}
+details.more ul{margin-top:14px;display:grid;gap:10px;color:var(--dim);font-size:15px}
+details.more li{padding-left:18px;position:relative}
+details.more li::before{content:"";position:absolute;left:0;top:.7em;width:8px;height:1px;background:var(--acc)}
+.alsoline{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;margin-top:36px;padding-top:26px;border-top:1px solid var(--line);color:var(--dim);font-size:15px}
+@media (max-width:900px){.work{grid-template-columns:1fr}}
+
+/* about */
+.about{display:grid;grid-template-columns:5fr 6fr;gap:80px;border-top:1px solid var(--line)}
+.about__copy p{font-size:17px;color:var(--dim);line-height:1.7}
+.about__copy p:first-child{font:500 21px/1.55 var(--display);letter-spacing:-.015em;color:var(--ink)}
+.about__copy p + p{margin-top:20px}
+.facts{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:40px;padding-top:24px;border-top:1px solid var(--line)}
+.facts dt{font:500 11px/1.4 var(--text);letter-spacing:.12em;text-transform:uppercase;color:var(--dim)}
+.facts dd{margin-top:8px;font-size:15px}
+.facts dd small{display:block;color:var(--dim);font-size:14px}
+@media (max-width:900px){.about{grid-template-columns:1fr;gap:40px}}
+
+/* toolkit */
+.kit{display:grid;grid-template-columns:repeat(3,1fr);margin-top:64px;border-top:1px solid var(--line)}
+.kit > div{padding:34px 34px 34px 0}
+.kit > div + div{padding-left:34px;border-left:1px solid var(--line)}
+.kit .label{color:var(--acc)}
+.kit h3{font:500 20px/1.3 var(--display);letter-spacing:-.02em;margin-top:18px}
+.kit p{color:var(--dim);font-size:15px;margin-top:12px}
+.kit .tags{margin-top:20px}
+@media (max-width:900px){.kit{grid-template-columns:1fr}.kit > div,.kit > div + div{padding:28px 0;border-left:0;border-bottom:1px solid var(--line)}}
+
+/* experience */
+.exp{margin-top:56px;border-top:1px solid var(--line)}
+.job{display:grid;grid-template-columns:200px 1fr 170px;gap:40px;padding:38px 0;border-bottom:1px solid var(--line);transition:background .3s}
+.job:hover .job__co{color:var(--acc)}
+.job__when{font-size:13px;letter-spacing:.08em;color:var(--dim);font-variant-numeric:tabular-nums;padding-top:6px}
+.job__co{font:500 24px/1.2 var(--display);letter-spacing:-.03em;transition:color .3s}
+.job__role{color:var(--dim);margin-top:4px}
+.job__desc{color:var(--dim);font-size:15.5px;max-width:62ch;margin-top:16px}
+.job .tags{margin-top:18px}
+.job__where{font-size:14px;color:var(--dim);text-align:right;padding-top:6px}
+.job--compact .job__desc{display:none}
+@media (max-width:900px){.job{grid-template-columns:1fr;gap:10px}.job__where{text-align:left}}
+
+/* principles */
+.prin{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:64px}
+.prin > div{border:1px solid var(--line);border-radius:14px;padding:30px;transition:border-color .3s,transform .4s var(--ease)}
+.prin > div:hover{border-color:var(--line2);transform:translateY(-3px)}
+.prin .n{font-size:13px;color:var(--acc);font-variant-numeric:tabular-nums}
+.prin h3{font:500 20px/1.3 var(--display);letter-spacing:-.02em;margin-top:40px}
+.prin p{color:var(--dim);font-size:15px;margin-top:10px}
+@media (max-width:900px){.prin{grid-template-columns:1fr}}
+
+/* contact */
+.contact{display:grid;grid-template-columns:6fr 5fr;gap:80px;align-items:start}
+.contact h2{font:500 clamp(40px,5vw,68px)/1.04 var(--display);letter-spacing:-.05em;margin-top:18px}
+.contact h2 em{font-style:normal;color:var(--acc)}
+.contact__lede{color:var(--dim);font-size:17px;max-width:44ch;margin-top:26px}
+.contact__links{display:flex;flex-direction:column;gap:14px;margin-top:36px;font-size:17px}
+.contact__links .mail{font:500 22px/1.3 var(--display);letter-spacing:-.02em;color:var(--ink)}
+.form{border:1px solid var(--line2);border-radius:14px;padding:30px;display:grid;gap:18px;background:rgba(255,255,255,.02)}
+.form h3{font:500 20px/1.3 var(--display);letter-spacing:-.02em}
+.field{display:grid;gap:8px}
+.field label{font-size:13px;color:var(--dim)}
+.field input,.field textarea{width:100%;background:transparent;border:0;border-bottom:1px solid var(--line2);color:var(--ink);font:400 16px/1.5 var(--text);padding:10px 0;transition:border-color .25s}
+.field textarea{min-height:96px;resize:vertical}
+.field input:focus,.field textarea:focus{outline:none;border-bottom-color:var(--acc)}
+.form .btn{justify-self:start;border:0;cursor:pointer}
+.form__note{font-size:13px;color:var(--dim)}
+@media (max-width:900px){.contact{grid-template-columns:1fr;gap:48px}}
+
+footer{border-top:1px solid var(--line);padding:30px 0 44px;color:var(--dim);font-size:13px}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+</style>
+</head>
+<body>
+<header class="top" id="top-bar">
+  <div class="wrap top__in">
+    <a class="logo" href="#top" aria-label="Jagadish Pampatwar, back to top">j<i>.</i></a>
+    <nav aria-label="Main"><a href="#work">Selected work</a><a href="#about">About</a><a href="#experience">Experience</a><a href="#contact">Contact</a></nav>
+    <a class="talk arrow-link" href="#contact">Let's talk <span>↗</span></a>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero" aria-labelledby="hero-h">
+    <div class="wrap">
+      <div class="hero__meta"><p class="label">Jagadish Pampatwar</p><p class="open">Open to architect roles</p></div>
+      <div class="hero__grid">
+        <div>
+          <p class="hero__kick rv">Java architect. Cloud and AI solutions.</p>
+          <h1 id="hero-h" class="rv">Architecting systems<br>that <em>stay running.</em></h1>
+          <p class="hero__lede rv">I modernize enterprise Java platforms that businesses can't afford to switch off, and connect them to AI. <b>19 years</b> in, the last <b>13 at CSX Transportation</b>.</p>
+          <div class="hero__cta rv">
+            <a class="btn" href="#work">See the work <span>↘</span></a>
+            <a class="arrow-link" href="resume.pdf">Résumé <span>↗</span></a>
+          </div>
+        </div>
+
+        <aside class="card rv" aria-label="How I architect">
+          <div class="card__head"><span class="label">How I architect</span><span class="count" id="count">01 / 04</span></div>
+          <div class="card__intro">
+            <span class="glyph" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="8.5" y="14" width="7" height="7" rx="1.5"/><path d="M6.5 10v2h11v-2M12 12v2"/></svg></span>
+            <p>From the legacy core<br>to the intelligent edge.</p>
+          </div>
+          <ol class="rows" id="rows">
+            <li class="row on"><span class="n">01</span><div><h3>Modernize</h3><p>Monoliths to cloud-native services.</p></div><span class="tag">JAVA</span></li>
+            <li class="row"><span class="n">02</span><div><h3>Stream</h3><p>Event-driven integration on Kafka.</p></div><span class="tag">EVT</span></li>
+            <li class="row"><span class="n">03</span><div><h3>Deploy</h3><p>Azure, AWS and OpenShift at scale.</p></div><span class="tag">OPS</span></li>
+            <li class="row"><span class="n">04</span><div><h3>Augment</h3><p>LLMs and RAG, with guardrails.</p></div><span class="tag">AI</span></li>
+          </ol>
+          <div class="card__foot"><span class="label">19 years of enterprise Java</span><span aria-hidden="true" class="dim">↗</span></div>
+        </aside>
+      </div>
+
+      <div class="hero__bar"><span>Enterprise architecture. Measurable outcomes.</span><nav><a class="arrow-link" href="mailto:jagadish.pampatwar@gmail.com">Email <span>↗</span></a><a class="arrow-link" href="#work">Scroll to explore <span>↓</span></a></nav></div>
+    </div>
+  </section>
+
+  <div class="strip" aria-label="Core stack">
+    <div class="wrap strip__in"><p class="label">Core stack</p><ul><li>Java</li><li>Spring Boot</li><li>Kafka</li><li>Kubernetes</li><li>Azure OpenAI</li></ul><p class="plus">+ a lot of production</p></div>
+  </div>
+
+  <section class="sec" id="work" aria-labelledby="work-h">
+    <div class="wrap">
+      <p class="label rv"><b>01</b> / Selected work</p>
+      <div class="sec__head rv"><h2 id="work-h" class="h2">Modernized at scale.<span class="dim">Measured in dollars.</span></h2><p>Two bodies of work from CSX Transportation, and the architecture behind them.</p></div>
+
+      <div class="work">
+        <article class="case case--sand rv">
+          <div class="case__top">
+            <div class="case__lab"><span>Legacy → Modern</span><span>01</span></div>
+            <p class="case__big">Legacy out.<br><span>About $1M saved.</span></p>
+            <div class="flow" data-flow><b>J2EE monolith</b><i>→</i><b>Target architecture</b><i>→</i><b class="end"><span>~$1M saved</span></b></div>
+            <p class="case__name">Transflo · CSX Transportation</p>
+          </div>
+          <div class="case__body">
+            <p class="label">Application modernization · Architecture lead</p>
+            <h3>Transflo Customer Inventory Management System.</h3>
+            <p>Led the modernization of a legacy J2EE system to a scalable, maintainable architecture, cutting legacy dependencies and simplifying maintenance.</p>
+            <div class="tags"><span>Java</span><span>Spring Boot</span><span>Microservices</span><span>Modernization</span></div>
+            <details class="more"><summary>Explore the engineering <i>+</i></summary>
+              <ul><li>Designed the strategy to move legacy capabilities onto a modern foundation.</li><li>Reduced legacy technology dependencies and rationalized the stack.</li><li>Built a base for future enhancements and enterprise integration.</li><li>Contributed to approximately $1 million in cost savings.</li></ul>
+            </details>
+          </div>
+        </article>
+
+        <article class="case case--steel rv">
+          <div class="case__top">
+            <div class="case__lab"><span>Data → Decisions</span><span>02</span></div>
+            <p class="case__big">Rail operations.<br><span>In real time.</span></p>
+            <div class="flow" data-flow><b>Rail data</b><i>→</i><b>Kafka events</b><i>→</i><b class="end"><span>Ops platforms</span></b></div>
+            <p class="case__name">Key systems · CSX Transportation</p>
+          </div>
+          <div class="case__body">
+            <p class="label">Distributed systems · Solution architecture</p>
+            <h3>PTC Operations Portal, Fleet Management, Engineering &amp; Track platforms.</h3>
+            <p>Architected the systems behind rail operations: event-driven designs for high-volume ingestion and real-time processing, with secure APIs through Apigee.</p>
+            <div class="tags"><span>Kafka</span><span>Spring Boot</span><span>MongoDB</span><span>Angular</span><span>Apigee</span></div>
+            <details class="more"><summary>Explore the engineering <i>+</i></summary>
+              <ul><li>Cloud-native microservices with Java, Spring Boot, Kafka and MongoDB.</li><li>Event-driven integration for real-time data across platforms.</li><li>Deployments on AWS, Azure and OpenShift with Docker and Kubernetes.</li><li>Observability with the ELK Stack and Datadog.</li></ul>
+            </details>
+          </div>
+        </article>
+      </div>
+      <div class="alsoline rv"><span>Earlier: healthcare at GuideWell, public health for New York State, enterprise apps at Pfizer.</span><a class="arrow-link" href="#experience">Full experience <span>↓</span></a></div>
+    </div>
+  </section>
+
+  <section class="sec" id="about" aria-labelledby="about-h" style="padding-top:0">
+    <div class="wrap about" style="padding-top:110px">
+      <div class="rv">
+        <p class="label"><b>02</b> / The architect behind the systems</p>
+        <h2 id="about-h" class="h2" style="margin-top:18px">Architecture is my craft.<span class="dim">Reliability is the product.</span></h2>
+        <p style="margin-top:30px"><a class="arrow-link" href="#contact">Work with me <span>↗</span></a></p>
+      </div>
+      <div class="about__copy rv">
+        <p>I'm Jagadish, an enterprise Java architect. I design the platforms large organizations run on, and I move them forward without stopping them.</p>
+        <p>At CSX I define solution architecture and technical roadmaps, set the patterns teams reuse, and lead the modernization of monolithic J2EE applications into cloud-native services on Kafka, Kubernetes and the cloud.</p>
+        <p>Lately I bring generative AI into those systems: Azure OpenAI and LangChain workflows, retrieval over company data, and AI agents, always with access control and validation of what the models produce.</p>
+        <dl class="facts"><div><dt>Current focus</dt><dd>Java modernization + applied AI</dd></div><div><dt>Education</dt><dd>MS, Computer Science<small>Texas A&amp;M University–Kingsville</small></dd></div></dl>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="toolkit" aria-labelledby="kit-h" style="padding-top:20px">
+    <div class="wrap">
+      <p class="label rv"><b>03</b> / The toolkit</p>
+      <h2 id="kit-h" class="h2 rv" style="margin-top:18px">Depth in Java.<span class="dim">Range across the stack.</span></h2>
+      <div class="kit rv">
+        <div><p class="label">01 / Architect</p><h3>Enterprise and solution architecture</h3><p>Microservices, domain-driven and event-driven design, governance and standards that scale across teams.</p><div class="tags"><span>Microservices</span><span>DDD</span><span>REST</span><span>Apigee</span><span>Kafka</span><span>JMS / IBM MQ</span></div></div>
+        <div><p class="label">02 / Build</p><h3>Java, cloud and data</h3><p>The platform work underneath: services, containers, pipelines and the data stores behind them.</p><div class="tags"><span>Java 17</span><span>Spring Boot</span><span>Hibernate</span><span>Kubernetes</span><span>OpenShift</span><span>Azure</span><span>AWS</span><span>Terraform</span><span>Oracle</span><span>MongoDB</span></div></div>
+        <div><p class="label">03 / Augment</p><h3>AI and delivery</h3><p>Practical generative AI in enterprise systems, shipped through reliable delivery and observability.</p><div class="tags"><span>Azure OpenAI</span><span>LangChain</span><span>RAG</span><span>AI agents</span><span>GitHub Copilot</span><span>Jenkins</span><span>Argo CD</span><span>Datadog</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="experience" aria-labelledby="exp-h" style="padding-top:40px">
+    <div class="wrap">
+      <p class="label rv"><b>04</b> / Experience</p>
+      <div class="sec__head rv"><h2 id="exp-h" class="h2">Built in the real world.</h2><a class="arrow-link" href="resume.pdf">View résumé <span>↗</span></a></div>
+      <ol class="exp">
+        <li class="job rv"><span class="job__when">2012 — PRESENT</span><div><h3 class="job__co">CSX Transportation</h3><p class="job__role">Java Architect / Senior Technical Lead</p><p class="job__desc">Leading enterprise architecture, modernization and cloud transformation for large-scale transportation and logistics platforms. Architecture reviews, engineering standards and mentoring across development teams.</p><div class="tags"><span>Java</span><span>Spring Boot</span><span>Kafka</span><span>Kubernetes</span><span>Azure OpenAI</span></div></div><span class="job__where">Jacksonville, FL</span></li>
+        <li class="job rv"><span class="job__when">2011 — 2012</span><div><h3 class="job__co">GuideWell / Blue Cross Blue Shield</h3><p class="job__role">Senior Java Engineer</p><p class="job__desc">Enterprise healthcare applications on Spring MVC and Hibernate, with business rules in the Drools rule engine.</p></div><span class="job__where">Jacksonville, FL</span></li>
+        <li class="job rv"><span class="job__when">2011</span><div><h3 class="job__co">New York State Department of Health</h3><p class="job__role">Java Architect / Lead Developer</p><p class="job__desc">Secure public-health applications with JMS-based asynchronous messaging and caching for performance.</p></div><span class="job__where">Albany, NY</span></li>
+        <li class="job rv"><span class="job__when">2010 — 2011</span><div><h3 class="job__co">Convergys</h3><p class="job__role">Senior Java Engineer</p><p class="job__desc">Ordering and billing applications with SOAP integrations and asynchronous messaging.</p></div><span class="job__where">Lake Mary, FL</span></li>
+        <li class="job rv"><span class="job__when">2008 — 2010</span><div><h3 class="job__co">Pfizer</h3><p class="job__role">Senior Developer</p><p class="job__desc">Enterprise Java/J2EE applications and backend integrations.</p></div><span class="job__where">Groton, CT</span></li>
+        <li class="job rv"><span class="job__when">2005 — 2006</span><div><h3 class="job__co">Sourcen</h3><p class="job__role">Java Developer</p></div><span class="job__where">Bangalore, India</span></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="sec" aria-labelledby="prin-h" style="padding-top:20px">
+    <div class="wrap">
+      <p class="label rv"><b>05</b> / How I work</p>
+      <h2 id="prin-h" class="h2 rv" style="margin-top:18px">Big systems.<span class="dim">Calm changes.</span></h2>
+      <div class="prin">
+        <div class="rv"><span class="n">01</span><h3>Modernize without stopping the business</h3><p>Legacy systems move to the new architecture in stages, while they keep serving the people who depend on them.</p></div>
+        <div class="rv"><span class="n">02</span><h3>Standards teams can reuse</h3><p>Reusable patterns, design guidelines and reviews, so good architecture survives beyond one project.</p></div>
+        <div class="rv"><span class="n">03</span><h3>AI with guardrails</h3><p>Data security, access control and validation of AI output come first, so teams can trust what the models produce.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="contact" aria-labelledby="c-h" style="border-top:1px solid var(--line)">
+    <div class="wrap contact">
+      <div class="rv">
+        <p class="label"><b>06</b> / What's next?</p>
+        <h2 id="c-h">Big systems<br>start with a<br><em>conversation.</em></h2>
+        <p class="contact__lede">I'm open to enterprise architecture, Java modernization and AI solutions architect roles. Have something in mind?</p>
+        <div class="contact__links"><a class="mail arrow-link" href="mailto:jagadish.pampatwar@gmail.com">jagadish.pampatwar@gmail.com <span>↗</span></a></div>
+      </div>
+      <form class="form rv" id="note" novalidate>
+        <h3>Drop me a note.</h3>
+        <div class="field"><label for="f-name">Your name</label><input id="f-name" name="name" autocomplete="name" required></div>
+        <div class="field"><label for="f-mail">Email address</label><input id="f-mail" name="email" type="email" autocomplete="email" required></div>
+        <div class="field"><label for="f-msg">What are you thinking?</label><textarea id="f-msg" name="msg" required></textarea></div>
+        <button class="btn" type="submit">Send message <span>↗</span></button>
+        <p class="form__note" id="f-status" role="status">Opens your email app with the message ready to send.</p>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer><div class="wrap"><span>© 2026 Jagadish Pampatwar · Jacksonville, Florida</span><a class="arrow-link" href="#top">Back to top <span>↑</span></a></div></footer>
+
+<script>
+(() => {
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.documentElement.classList.add('js');
+
+  // 1. gentle reveal, once
+  const io = new IntersectionObserver(es => es.forEach(e => {
+    if (!e.isIntersecting) return;
+    e.target.classList.add('in'); io.unobserve(e.target);
+    const flow = e.target.querySelector('[data-flow]');
+    if (flow) lightFlow(flow);
+  }), { threshold: .15 });
+  document.querySelectorAll('.rv').forEach(el => io.observe(el));
+
+  // 2. case cards: the flow chips light left to right, once
+  function lightFlow(flow) {
+    const chips = [...flow.querySelectorAll('b')];
+    if (reduce) { chips.forEach(c => c.classList.add('lit')); return; }
+    chips.forEach((c, i) => setTimeout(() => c.classList.add('lit'), 500 + i * 450));
+  }
+
+  // 3. hero card: one row highlighted at a time; pauses on hover
+  const rows = [...document.querySelectorAll('#rows .row')], count = document.getElementById('count');
+  let i = 0, paused = false;
+  const show = n => { rows.forEach((r, k) => r.classList.toggle('on', k === n)); count.textContent = `0${n + 1} / 0${rows.length}`; };
+  rows.forEach((r, k) => r.addEventListener('mouseenter', () => { paused = true; i = k; show(k); }));
+  document.getElementById('rows').addEventListener('mouseleave', () => { paused = false; });
+  if (!reduce) setInterval(() => { if (!paused && !document.hidden) { i = (i + 1) % rows.length; show(i); } }, 3200);
+
+  // header hairline after scrolling
+  const bar = document.getElementById('top-bar');
+  addEventListener('scroll', () => bar.classList.toggle('scrolled', scrollY > 8), { passive: true });
+
+  // form: compose an email
+  document.getElementById('note').addEventListener('submit', e => {
+    e.preventDefault();
+    const f = e.target, st = document.getElementById('f-status');
+    const bad = [...f.querySelectorAll('[required]')].filter(x => !x.checkValidity());
+    if (bad.length) { st.textContent = `Fill in ${bad.map(b => f.querySelector(`label[for="${b.id}"]`).textContent.toLowerCase()).join(', ')}.`; bad[0].focus(); return; }
+    const body = `${f.msg.value}\n\n${f.name.value}\n${f.email.value}`;
+    location.href = `mailto:jagadish.pampatwar@gmail.com?subject=${encodeURIComponent('Hello from ' + f.name.value)}&body=${encodeURIComponent(body)}`;
+    st.textContent = 'Your email app should open with the message. If it does not, write to jagadish.pampatwar@gmail.com.';
+  });
+})();
+</script>
+</body>
+</html>

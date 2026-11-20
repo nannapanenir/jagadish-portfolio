@@ -1,0 +1,15 @@
+---
+import { profile } from '../data/profile';
+const s = profile.toolkitSection;
+---
+<section class="sec" id="toolkit" aria-labelledby="kit-h" style="padding-top:20px">
+  <div class="wrap">
+    <p class="label rv"><b>{s.n}</b> / {s.label}</p>
+    <h2 id="kit-h" class="h2 rv" style="margin-top:18px">{s.heading[0]}<span class="dim">{s.heading[1]}</span></h2>
+    <div class="kit rv">
+      {profile.toolkit.map((k) => (
+        <div><p class="label">{k.label}</p><h3>{k.title}</h3><p>{k.text}</p><div class="tags">{k.tags.map((t) => <span>{t}</span>)}</div></div>
+      ))}
+    </div>
+  </div>
+</section>

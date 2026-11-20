@@ -1,0 +1,15 @@
+---
+import { profile } from '../data/profile';
+import CaseCard from './CaseCard.astro';
+const s = profile.workSection;
+---
+<section class="sec" id="work" aria-labelledby="work-h">
+  <div class="wrap">
+    <p class="label rv"><b>{s.n}</b> / {s.label}</p>
+    <div class="sec__head rv"><h2 id="work-h" class="h2">{s.heading[0]}<span class="dim">{s.heading[1]}</span></h2><p>{s.intro}</p></div>
+    <div class="work">
+      {profile.work.map((w) => <CaseCard work={w} />)}
+    </div>
+    <div class="alsoline rv"><span>{s.also}</span><a class="arrow-link" href="#experience">{s.alsoLink} <span aria-hidden="true">↓</span></a></div>
+  </div>
+</section>

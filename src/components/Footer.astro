@@ -1,0 +1,5 @@
+---
+import { profile } from '../data/profile';
+const year = new Date().getFullYear();
+---
+<footer><div class="wrap"><span>© {year} {profile.name} · {profile.location}</span><a class="arrow-link" href="#top">{profile.footer.backToTop} <span aria-hidden="true">↑</span></a></div></footer>

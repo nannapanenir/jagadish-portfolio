@@ -1,0 +1,23 @@
+---
+import type { Work } from '../data/profile';
+import { profile } from '../data/profile';
+interface Props { work: Work }
+const { work: w } = Astro.props;
+---
+<article class:list={['case', `case--${w.theme}`, 'rv']} aria-labelledby={`case-${w.id}`}>
+  <div class="case__top">
+    <div class="case__lab"><span>{w.label}</span><span>{w.index}</span></div>
+    <p class="case__big">{w.big[0]}<br><span>{w.big[1]}</span></p>
+    <div class="flow" data-flow><b>{w.flow[0]}</b><i aria-hidden="true">→</i><b>{w.flow[1]}</b><i aria-hidden="true">→</i><b class="end"><span>{w.flow[2]}</span></b></div>
+    <p class="case__name">{w.name}</p>
+  </div>
+  <div class="case__body">
+    <p class="label">{w.kicker}</p>
+    <h3 id={`case-${w.id}`}>{w.title}</h3>
+    <p>{w.text}</p>
+    <div class="tags">{w.tags.map((t) => <span>{t}</span>)}</div>
+    <details class="more"><summary>{profile.workSection.more} <i aria-hidden="true">+</i></summary>
+      <ul>{w.details.map((d) => <li>{d}</li>)}</ul>
+    </details>
+  </div>
+</article>

@@ -1,0 +1,18 @@
+---
+import { profile } from '../data/profile';
+const c = profile.howIArchitect;
+const pad = (n: number) => String(n).padStart(2, '0');
+---
+<aside class="card rv" aria-label={c.label}>
+  <div class="card__head"><span class="label">{c.label}</span><span class="count" id="count">{`01 / ${pad(c.rows.length)}`}</span></div>
+  <div class="card__intro">
+    <span class="glyph" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="8.5" y="14" width="7" height="7" rx="1.5"/><path d="M6.5 10v2h11v-2M12 12v2"/></svg></span>
+    <p>{c.intro[0]}<br>{c.intro[1]}</p>
+  </div>
+  <ol class="rows" id="rows">
+    {c.rows.map((r, k) => (
+      <li class:list={['row', { on: k === 0 }]}><span class="n">{r.n}</span><div><strong>{r.title}</strong><p>{r.line}</p></div><span class="tag">{r.tag}</span></li>
+    ))}
+  </ol>
+  <div class="card__foot"><span class="label">{c.foot}</span><span aria-hidden="true" class="dim">↗</span></div>
+</aside>

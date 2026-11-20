@@ -1,0 +1,15 @@
+---
+import { profile } from '../data/profile';
+const s = profile.experienceSection;
+---
+<section class="sec" id="experience" aria-labelledby="exp-h" style="padding-top:40px">
+  <div class="wrap">
+    <p class="label rv"><b>{s.n}</b> / {s.label}</p>
+    <div class="sec__head rv"><h2 id="exp-h" class="h2">{s.heading}</h2><a class="arrow-link" href={profile.resumeUrl}>{s.resumeLink} <span aria-hidden="true">↗</span></a></div>
+    <ol class="exp">
+      {profile.experience.map((j) => (
+        <li class="job rv"><span class="job__when">{j.when}</span><div><h3 class="job__co">{j.company}</h3><p class="job__role">{j.role}</p>{j.desc && <p class="job__desc">{j.desc}</p>}{j.tags?.length && <div class="tags">{j.tags.map((t) => <span>{t}</span>)}</div>}</div><span class="job__where">{j.where}</span></li>
+      ))}
+    </ol>
+  </div>
+</section>

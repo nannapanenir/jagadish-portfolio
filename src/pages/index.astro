@@ -1,0 +1,31 @@
+---
+import Base from '../layouts/Base.astro';
+import Header from '../components/Header.astro';
+import Hero from '../components/Hero.astro';
+import StackStrip from '../components/StackStrip.astro';
+import SelectedWork from '../components/SelectedWork.astro';
+import About from '../components/About.astro';
+import Toolkit from '../components/Toolkit.astro';
+import Experience from '../components/Experience.astro';
+import Principles from '../components/Principles.astro';
+import Contact from '../components/Contact.astro';
+import Footer from '../components/Footer.astro';
+import { missingContent } from '../data/profile';
+
+const missing = missingContent();
+if (missing.length) console.warn(`\n[profile] still empty in src/data/profile.ts:\n  - ${missing.join('\n  - ')}\n  - (and add public/resume.pdf)\n`);
+---
+<Base>
+  <Header />
+  <main id="top">
+    <Hero />
+    <StackStrip />
+    <SelectedWork />
+    <About />
+    <Toolkit />
+    <Experience />
+    <Principles />
+    <Contact />
+  </main>
+  <Footer />
+</Base>

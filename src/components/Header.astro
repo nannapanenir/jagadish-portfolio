@@ -1,0 +1,11 @@
+---
+import { profile } from '../data/profile';
+const h = profile.header;
+---
+<header class="top" id="top-bar">
+  <div class="wrap top__in">
+    <a class="logo" href="#top" aria-label={h.logoLabel}>{h.logo}<i>.</i></a>
+    <nav aria-label="Main">{h.nav.map((l) => <a href={l.href}>{l.text}</a>)}</nav>
+    <a class="talk arrow-link" href="#contact">{h.talk} <span aria-hidden="true">↗</span></a>
+  </div>
+</header>

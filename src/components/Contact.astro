@@ -1,0 +1,16 @@
+---
+import { profile } from '../data/profile';
+import NoteForm from './NoteForm.astro';
+const c = profile.contact;
+---
+<section class="sec" id="contact" aria-labelledby="c-h" style="border-top:1px solid var(--line)">
+  <div class="wrap contact">
+    <div class="rv">
+      <p class="label"><b>{c.n}</b> / {c.label}</p>
+      <h2 id="c-h">{c.heading[0]}<br>{c.heading[1]}<br><em>{c.heading[2]}</em></h2>
+      <p class="contact__lede">{c.lede}</p>
+      <div class="contact__links"><a class="mail arrow-link" href={`mailto:${profile.email}`}>{profile.email} <span aria-hidden="true">↗</span></a></div>
+    </div>
+    <NoteForm />
+  </div>
+</section>

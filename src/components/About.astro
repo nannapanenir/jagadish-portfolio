@@ -1,0 +1,17 @@
+---
+import { profile } from '../data/profile';
+const a = profile.about;
+---
+<section class="sec" id="about" aria-labelledby="about-h" style="padding-top:0">
+  <div class="wrap about" style="padding-top:110px">
+    <div class="rv">
+      <p class="label"><b>{a.n}</b> / {a.label}</p>
+      <h2 id="about-h" class="h2" style="margin-top:18px">{a.heading[0]}<span class="dim">{a.heading[1]}</span></h2>
+      <p style="margin-top:30px"><a class="arrow-link" href="#contact">{a.cta} <span aria-hidden="true">↗</span></a></p>
+    </div>
+    <div class="about__copy rv">
+      {a.paragraphs.map((p) => <p>{p}</p>)}
+      <dl class="facts"><div><dt>{a.focusLabel}</dt><dd>{a.focus}</dd></div><div><dt>{a.educationLabel}</dt><dd>{a.education.degree}<small>{a.education.school}</small></dd></div></dl>
+    </div>
+  </div>
+</section>

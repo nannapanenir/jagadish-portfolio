@@ -1,0 +1,13 @@
+---
+import { profile } from '../data/profile';
+const s = profile.principlesSection;
+---
+<section class="sec" aria-labelledby="prin-h" style="padding-top:20px">
+  <div class="wrap">
+    <p class="label rv"><b>{s.n}</b> / {s.label}</p>
+    <h2 id="prin-h" class="h2 rv" style="margin-top:18px">{s.heading[0]}<span class="dim">{s.heading[1]}</span></h2>
+    <div class="prin">
+      {profile.principles.map((p) => <div class="rv"><span class="n">{p.n}</span><h3>{p.title}</h3><p>{p.text}</p></div>)}
+    </div>
+  </div>
+</section>

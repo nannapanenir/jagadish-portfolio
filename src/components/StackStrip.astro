@@ -1,0 +1,7 @@
+---
+import { profile } from '../data/profile';
+const s = profile.coreStack;
+---
+<div class="strip" role="region" aria-label={s.label}>
+  <div class="wrap strip__in"><p class="label">{s.label}</p><ul>{s.items.map((i) => <li>{i}</li>)}</ul><p class="plus">{s.plus}</p></div>
+</div>

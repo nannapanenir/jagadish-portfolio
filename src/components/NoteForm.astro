@@ -1,0 +1,12 @@
+---
+import { profile } from '../data/profile';
+const f = profile.contact.form;
+---
+<form class="form rv" id="note" novalidate data-email={profile.email} data-sent={f.sent} data-missing={f.missing} data-subject={f.subject}>
+  <h3>{f.title}</h3>
+  <div class="field"><label for="f-name">{f.name}</label><input id="f-name" name="name" autocomplete="name" required></div>
+  <div class="field"><label for="f-mail">{f.email}</label><input id="f-mail" name="email" type="email" autocomplete="email" required></div>
+  <div class="field"><label for="f-msg">{f.message}</label><textarea id="f-msg" name="msg" required></textarea></div>
+  <button class="btn" type="submit">{f.submit} <span aria-hidden="true">↗</span></button>
+  <p class="form__note" id="f-status" role="status">{f.note}</p>
+</form>

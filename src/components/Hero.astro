@@ -1,0 +1,31 @@
+---
+import { profile } from '../data/profile';
+import HowIArchitectCard from './HowIArchitectCard.astro';
+const h = profile.hero;
+const [l1, l2, accent] = h.headline;
+const links = h.barLinks;
+---
+<section class="hero" aria-labelledby="hero-h">
+  <div class="wrap">
+    <div class="hero__meta"><p class="label">{profile.name}</p>{profile.openTo && <p class="open">{profile.openTo}</p>}</div>
+    <div class="hero__grid">
+      <div>
+        <p class="hero__kick rv">{h.role}</p>
+        <h1 id="hero-h" class="rv">{l1}<br>{l2}<em>{accent}</em></h1>
+        <p class="hero__lede rv">{h.lede.map((s) => (s.b ? <b>{s.t}</b> : s.t))}</p>
+        <div class="hero__cta rv">
+          <a class="btn" href="#work">{h.primaryCta} <span aria-hidden="true">↘</span></a>
+          <a class="arrow-link" href={profile.resumeUrl}>{h.resumeCta} <span aria-hidden="true">↗</span></a>
+        </div>
+      </div>
+      <HowIArchitectCard />
+    </div>
+
+    <div class="hero__bar"><span>{h.bar}</span><nav aria-label="Contact and links">
+      <a class="arrow-link" href={`mailto:${profile.email}`}>{links.email} <span aria-hidden="true">↗</span></a>
+      {profile.linkedin && <a class="arrow-link" href={profile.linkedin} rel="me">{links.linkedin} <span aria-hidden="true">↗</span></a>}
+      {profile.github && <a class="arrow-link" href={profile.github} rel="me">{links.github} <span aria-hidden="true">↗</span></a>}
+      <a class="arrow-link" href="#work">{links.scroll} <span aria-hidden="true">↓</span></a>
+    </nav></div>
+  </div>
+</section>
