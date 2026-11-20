@@ -88,7 +88,19 @@ Rules:
 
 ## Form
 
-The note form has no backend. It validates the required fields, then opens a `mailto:` with the name, email and message filled in, and tells the user that's what happens. If the user gives you a form service (Formspree, Netlify Forms), post to it instead and show success **only after** a 2xx response.
+The note form sends through **[Web3Forms](https://web3forms.com)** (free, no backend of our own). The old `mailto:` behaviour has been removed.
+
+- It posts to `https://api.web3forms.com/submit` with `fetch` (JSON, `Accept: application/json`). Fields: `name`, `email`, `message`, `replyto` (the visitor's email), plus hidden `access_key`, `subject` ("New message from jagadish portfolio"), `from_name` ("Portfolio contact form") and a visually hidden honeypot checkbox `botcheck`.
+- Before sending, it checks the fields and lists only the missing ones ("Please add your name, a valid email, a message"), then focuses the first.
+- While sending, the button is disabled and reads "Sending…".
+- Success shows **only** when the response is OK and `json.success` is `true`, then the form resets. Anything else shows the error line with Jagadish's email address.
+- Status text is in an `aria-live="polite"` element: success in amber, error in `#ff9b8a`.
+
+**Setup (one time):**
+1. Go to https://web3forms.com, enter **Jagadish's email** (jagadish.pampatwar@gmail.com) and create an access key. Messages go to the email the key was created with.
+2. Locally, copy `.env.example` to `.env` and set `PUBLIC_WEB3FORMS_KEY=<the key>`.
+3. On Vercel, go to Project → Settings → Environment Variables, add `PUBLIC_WEB3FORMS_KEY` with the same value for Production (and Preview), then redeploy. The key is read at build time.
+4. After deploying, send one test message from the live site and check that it arrives in Jagadish's inbox.
 
 ## Don'ts
 

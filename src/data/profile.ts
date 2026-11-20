@@ -276,11 +276,16 @@ export const profile = {
       email: 'Email address',
       message: 'What are you thinking?',
       submit: 'Send message',
-      note: 'Opens your email app with the message ready to send.',
-      // Shown after submit. {email} is replaced with the address.
-      sent: 'Your email app should open with the message. If it does not, write to {email}.',
-      missing: 'Fill in {fields}.',
-      subject: 'Hello from {name}',
+      sending: 'Sending…',
+      note: 'Your message goes straight to my inbox.',
+      // Validation: "Please add " + only the missing items, joined with ", ".
+      missingPrefix: 'Please add ',
+      missing: { name: 'your name', email: 'a valid email', message: 'a message' },
+      success: 'Thanks, your message was sent. I will get back to you soon.',
+      error: 'The message could not be sent. Please email jagadish.pampatwar@gmail.com directly.',
+      // Sent to Web3Forms as hidden fields (they set the email you receive).
+      subject: 'New message from jagadish portfolio',
+      fromName: 'Portfolio contact form',
     },
   },
 

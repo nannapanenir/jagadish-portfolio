@@ -1,12 +1,32 @@
 ---
 import { profile } from '../data/profile';
 const f = profile.contact.form;
+
+// Web3Forms access key. It's public by design (it can only send to the inbox
+// it was created for), but it lives in an env variable, not in the code.
+// Set PUBLIC_WEB3FORMS_KEY in .env locally and in Vercel → Settings → Environment Variables.
+const accessKey = import.meta.env.PUBLIC_WEB3FORMS_KEY ?? '';
+if (!accessKey) console.warn('\n[form] PUBLIC_WEB3FORMS_KEY is not set: the note form will show its error message until it is.\n');
 ---
-<form class="form rv" id="note" novalidate data-email={profile.email} data-sent={f.sent} data-missing={f.missing} data-subject={f.subject}>
+<form
+  class="form rv" id="note" novalidate
+  action="https://api.web3forms.com/submit" method="POST"
+  data-missing-prefix={f.missingPrefix}
+  data-missing-name={f.missing.name}
+  data-missing-email={f.missing.email}
+  data-missing-message={f.missing.message}
+  data-sending={f.sending}
+  data-success={f.success}
+  data-error={f.error}
+>
+  <input type="hidden" name="access_key" value={accessKey}>
+  <input type="hidden" name="subject" value={f.subject}>
+  <input type="hidden" name="from_name" value={f.fromName}>
+  <input type="checkbox" name="botcheck" class="hp" tabindex="-1" aria-hidden="true" autocomplete="off">
   <h3>{f.title}</h3>
   <div class="field"><label for="f-name">{f.name}</label><input id="f-name" name="name" autocomplete="name" required></div>
   <div class="field"><label for="f-mail">{f.email}</label><input id="f-mail" name="email" type="email" autocomplete="email" required></div>
-  <div class="field"><label for="f-msg">{f.message}</label><textarea id="f-msg" name="msg" required></textarea></div>
+  <div class="field"><label for="f-msg">{f.message}</label><textarea id="f-msg" name="message" required></textarea></div>
   <button class="btn" type="submit">{f.submit} <span aria-hidden="true">↗</span></button>
-  <p class="form__note" id="f-status" role="status">{f.note}</p>
+  <p class="form__note" id="f-status" role="status" aria-live="polite">{f.note}</p>
 </form>

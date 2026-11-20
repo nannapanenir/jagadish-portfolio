@@ -47,22 +47,67 @@ if (rowsEl && count) {
 const bar = document.getElementById('top-bar');
 if (bar) addEventListener('scroll', () => bar.classList.toggle('scrolled', scrollY > 8), { passive: true });
 
-// Note form: no backend. Validate, then open a mailto with everything filled in.
+// Note form: sends through Web3Forms (https://web3forms.com), no backend of our own.
+// Success is shown only when the response is OK *and* json.success is true.
 const form = document.getElementById('note') as HTMLFormElement | null;
-form?.addEventListener('submit', (e) => {
-  e.preventDefault();
-  const st = document.getElementById('f-status')!;
+if (form) {
   const d = form.dataset;
-  const bad = [...form.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>('[required]')].filter((x) => !x.checkValidity());
-  if (bad.length) {
-    const names = bad.map((b) => form.querySelector(`label[for="${b.id}"]`)!.textContent!.toLowerCase().replace(/[?.:]+$/, '')).join(', ');
-    st.textContent = d.missing!.replace('{fields}', names);
-    bad[0].focus();
-    return;
-  }
-  const v = (n: string) => (form.elements.namedItem(n) as HTMLInputElement).value;
-  const body = `${v('msg')}\n\n${v('name')}\n${v('email')}`;
-  const subject = d.subject!.replace('{name}', v('name'));
-  location.href = `mailto:${d.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-  st.textContent = d.sent!.replace('{email}', d.email!);
-});
+  const st = document.getElementById('f-status')!;
+  const btn = form.querySelector<HTMLButtonElement>('button[type="submit"]')!;
+  const field = (n: string) => form.elements.namedItem(n) as HTMLInputElement | HTMLTextAreaElement;
+  const say = (text: string, kind?: 'ok' | 'err') => {
+    st.textContent = text;
+    st.classList.toggle('is-ok', kind === 'ok');
+    st.classList.toggle('is-err', kind === 'err');
+  };
+  let sending = false;
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (sending) return;
+
+    // 1. Validate: list only what's missing, focus the first one.
+    const checks: [string, string | undefined][] = [
+      ['name', d.missingName],
+      ['email', d.missingEmail],
+      ['message', d.missingMessage],
+    ];
+    const missing = checks.filter(([n]) => {
+      const el = field(n);
+      return !el.value.trim() || !el.checkValidity();
+    });
+    if (missing.length) {
+      say(d.missingPrefix + missing.map(([, text]) => text).join(', '), 'err');
+      field(missing[0][0]).focus();
+      return;
+    }
+
+    // 2. Send.
+    sending = true;
+    const label = btn.innerHTML;
+    btn.disabled = true;
+    btn.textContent = d.sending!;
+    try {
+      const data = Object.fromEntries(new FormData(form)) as Record<string, string>;
+      data.replyto = data.email;
+      const res = await fetch(form.action, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify(data),
+      });
+      const json = await res.json().catch(() => null);
+      if (res.ok && json && json.success === true) {
+        form.reset();
+        say(d.success!, 'ok');
+      } else {
+        say(d.error!, 'err');
+      }
+    } catch {
+      say(d.error!, 'err');
+    } finally {
+      sending = false;
+      btn.disabled = false;
+      btn.innerHTML = label;
+    }
+  });
+}

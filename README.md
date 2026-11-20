@@ -36,7 +36,22 @@ npm i -D playwright && npx playwright install chromium
 npm run og
 ```
 
-**Note form:** it has no backend. It validates, then opens the visitor's email app with the note filled in (`src/scripts/site.ts`). To use a form service such as Formspree, post to it in that file and show success only after a 2xx response.
+**Note form:** the "Drop me a note" form sends through [Web3Forms](https://web3forms.com), which is free and needs no backend. The code is in `src/components/NoteForm.astro` and `src/scripts/site.ts`. Its messages (validation, sending, success, error) are in `contact.form` in `profile.ts`.
+
+### Set up the contact form (one time)
+
+1. Go to **https://web3forms.com**, enter **Jagadish's email** (`jagadish.pampatwar@gmail.com`) and create an access key. Web3Forms emails the key, and every message from the form goes to that address.
+2. **Locally:** copy the example env file and paste the key into it:
+
+   ```bash
+   cp .env.example .env
+   ```
+
+   Then edit `.env` so the line reads `PUBLIC_WEB3FORMS_KEY=your-key-here`. `.env` is git-ignored, so the key never gets committed.
+3. **On Vercel:** go to Project → **Settings → Environment Variables**, add `PUBLIC_WEB3FORMS_KEY` with the same key for Production (and Preview if you use it), then **redeploy**. The key is read at build time, so the variable only takes effect on the next deploy.
+4. **Test it:** after deploying, send one message from the live site and check that it arrives.
+
+Without a key the build still works (it prints a warning), but the form will show its error message ("…Please email … directly").
 
 ## Run locally
 
@@ -85,7 +100,7 @@ After adding a custom domain (Project → Settings → Domains), set `siteUrl` i
 ```
 src/data/profile.ts     all content
 src/styles/global.css   tokens + styles from template/index.html (fixes are marked "fix (not in template)")
-src/scripts/site.ts     the four motions + note form
+src/scripts/site.ts     the four motions + note form (Web3Forms)
 src/layouts/Base.astro  <head>: meta, Open Graph, Twitter card, Person JSON-LD, canonical, fonts
 src/components/         Header, Hero, HowIArchitectCard, StackStrip, SelectedWork, CaseCard,
                         About, Toolkit, Experience, Principles, Contact, NoteForm, Footer
