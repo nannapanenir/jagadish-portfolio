@@ -3,7 +3,9 @@
  *
  * Facts come only from Jagadish's résumé: don't add metrics, clients, team
  * sizes or dates that aren't in it. The $1M is "approximately", so always
- * "about" or "~", never "over". There is deliberately no phone number here.
+ * "about" or "~", never "over". There is deliberately no phone number and no
+ * email address: Jagadish doesn't want either shown. The note form and LinkedIn
+ * are the ways to reach him.
  *
  * Empty strings ('') are placeholders. `npm run build` prints a warning for each.
  */
@@ -47,9 +49,8 @@ export const profile = {
       'Jagadish Pampatwar, enterprise Java and AI solutions architect in Jacksonville, Florida. 19 years modernizing enterprise platforms, including about $1M saved on the Transflo modernization at CSX.',
   },
 
-  email: 'jagadish.pampatwar@gmail.com',
   resumeUrl: '/resume.pdf', // TODO: add the file at public/resume.pdf
-  linkedin: '', // TODO, e.g. 'https://www.linkedin.com/in/…' (appears in the hero bar + JSON-LD)
+  linkedin: 'https://www.linkedin.com/in/jagadish-pampatwar-8b5904182/', // hero bar, contact section, form error, JSON-LD
   github: '', // TODO, e.g. 'https://github.com/…' (appears in the hero bar)
 
   // Set to '' to hide the "open to" dot if he isn't looking.
@@ -81,7 +82,7 @@ export const profile = {
     primaryCta: 'See the work',
     resumeCta: 'Résumé',
     bar: 'Enterprise architecture. Measurable outcomes.',
-    barLinks: { email: 'Email', linkedin: 'LinkedIn', github: 'GitHub', scroll: 'Scroll to explore' },
+    barLinks: { linkedin: 'LinkedIn', github: 'GitHub', scroll: 'Scroll to explore' },
   },
 
   howIArchitect: {
@@ -269,6 +270,7 @@ export const profile = {
     n: '06',
     label: "What's next?",
     heading: ['Big systems', 'start with a', 'conversation.'] as [string, string, string], // last line in amber
+    linkedinLink: 'LinkedIn',
     lede: "I'm open to enterprise architecture, Java modernization and AI solutions architect roles. Have something in mind?",
     form: {
       title: 'Drop me a note.',
@@ -282,7 +284,10 @@ export const profile = {
       missingPrefix: 'Please add ',
       missing: { name: 'your name', email: 'a valid email', message: 'a message' },
       success: 'Thanks, your message was sent. I will get back to you soon.',
-      error: 'The message could not be sent. Please email jagadish.pampatwar@gmail.com directly.',
+      // Error line: errorBefore + [errorLink → profile.linkedin, new tab] + errorAfter
+      errorBefore: 'The message could not be sent. Please try again in a moment, or reach out on ',
+      errorLink: 'LinkedIn',
+      errorAfter: '.',
       // Sent to Web3Forms as hidden fields (they set the email you receive).
       subject: 'New message from jagadish portfolio',
       fromName: 'Portfolio contact form',

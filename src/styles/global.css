@@ -202,6 +202,7 @@ details.more li::before{content:"";position:absolute;left:0;top:.7em;width:8px;h
 /* addition: Web3Forms status colours, and the honeypot field kept off screen */
 .form__note.is-ok{color:var(--acc)}
 .form__note.is-err{color:#ff9b8a}
+.form__note a{color:inherit;text-decoration:underline;text-underline-offset:3px}
 .form .hp{position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden;opacity:0}
 @media (max-width:900px){.contact{grid-template-columns:1fr;gap:48px}}
 /* fix (not in template): at 360px the email address forced the column 8px wider than the screen */

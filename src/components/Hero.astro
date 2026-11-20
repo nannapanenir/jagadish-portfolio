@@ -22,9 +22,8 @@ const links = h.barLinks;
     </div>
 
     <div class="hero__bar"><span>{h.bar}</span><nav aria-label="Contact and links">
-      <a class="arrow-link" href={`mailto:${profile.email}`}>{links.email} <span aria-hidden="true">↗</span></a>
-      {profile.linkedin && <a class="arrow-link" href={profile.linkedin} rel="me">{links.linkedin} <span aria-hidden="true">↗</span></a>}
-      {profile.github && <a class="arrow-link" href={profile.github} rel="me">{links.github} <span aria-hidden="true">↗</span></a>}
+      {profile.linkedin && <a class="arrow-link" href={profile.linkedin} target="_blank" rel="me noopener noreferrer">{links.linkedin} <span aria-hidden="true">↗</span></a>}
+      {profile.github && <a class="arrow-link" href={profile.github} target="_blank" rel="me noopener noreferrer">{links.github} <span aria-hidden="true">↗</span></a>}
       <a class="arrow-link" href="#work">{links.scroll} <span aria-hidden="true">↓</span></a>
     </nav></div>
   </div>

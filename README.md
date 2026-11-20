@@ -15,14 +15,14 @@ The approved design is in `template/index.html` and the spec is in `HANDOFF.md`.
 | "How I architect" card rows | `howIArchitect.rows` |
 | Case cards | `work` (`theme: 'sand' \| 'steel'`, `flow` = the three chips, `details` = "Explore the engineering") |
 | About, toolkit, principles, contact | `about`, `toolkit`, `principles`, `contact` |
-| LinkedIn / GitHub (shown in the hero bar and JSON-LD) | `linkedin`, `github` |
+| LinkedIn / GitHub (hero bar, contact section, form error, JSON-LD) | `linkedin`, `github` |
 | "Open to architect roles" dot | `openTo` (set to `''` to hide it) |
 | Domain for canonical, sitemap and share URLs | `siteUrl` |
 | Section labels, nav, button text, form messages | the `*Section`, `header`, `contact.form` blocks |
 
 `npm run build` warns about any placeholder that is still empty.
 
-Rules (from `HANDOFF.md`): facts come only from the résumé. The $1M is always "about" or "~". No phone number.
+Rules (from `HANDOFF.md`): facts come only from the résumé. The $1M is always "about" or "~". No phone number, and **no email address**: Jagadish doesn't want it shown. People reach him through the note form or LinkedIn.
 
 **Résumé PDF:** save it as `public/resume.pdf` (three links point to it). Remove the phone number from the PDF too, unless you want it public.
 
@@ -40,7 +40,7 @@ npm run og
 
 ### Set up the contact form (one time)
 
-1. Go to **https://web3forms.com**, enter **Jagadish's email** (`jagadish.pampatwar@gmail.com`) and create an access key. Web3Forms emails the key, and every message from the form goes to that address.
+1. Go to **https://web3forms.com**, enter **Jagadish's email address** and create an access key. Web3Forms emails the key, and every message from the form goes to that address.
 2. **Locally:** copy the example env file and paste the key into it:
 
    ```bash
@@ -51,7 +51,7 @@ npm run og
 3. **On Vercel:** go to Project → **Settings → Environment Variables**, add `PUBLIC_WEB3FORMS_KEY` with the same key for Production (and Preview if you use it), then **redeploy**. The key is read at build time, so the variable only takes effect on the next deploy.
 4. **Test it:** after deploying, send one message from the live site and check that it arrives.
 
-Without a key the build still works (it prints a warning), but the form will show its error message ("…Please email … directly").
+Without a key the build still works (it prints a warning), but the form will show its error message ("…reach out on LinkedIn").
 
 ## Run locally
 

@@ -60,6 +60,20 @@ if (form) {
     st.classList.toggle('is-ok', kind === 'ok');
     st.classList.toggle('is-err', kind === 'err');
   };
+  // Error line with a LinkedIn link (opens in a new tab).
+  const sayError = () => {
+    say(d.errorBefore!, 'err');
+    if (d.errorHref) {
+      const a = document.createElement('a');
+      a.href = d.errorHref;
+      a.target = '_blank';
+      a.rel = 'noopener noreferrer';
+      a.textContent = d.errorLink!;
+      st.append(a, d.errorAfter!);
+    } else {
+      st.append(d.errorLink!, d.errorAfter!);
+    }
+  };
   let sending = false;
 
   form.addEventListener('submit', async (e) => {
@@ -100,10 +114,10 @@ if (form) {
         form.reset();
         say(d.success!, 'ok');
       } else {
-        say(d.error!, 'err');
+        sayError();
       }
     } catch {
-      say(d.error!, 'err');
+      sayError();
     } finally {
       sending = false;
       btn.disabled = false;

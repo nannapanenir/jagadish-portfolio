@@ -30,7 +30,7 @@ All copy lives in **one data file** (`src/data/profile.ts`). Components hold no 
 export const profile = {
   name, role: 'Java architect. Cloud and AI solutions.', openTo: 'Open to architect roles',
   headline: ['Architecting systems', 'that ', 'stay running.'],   // last part in the accent colour
-  lede, email: 'jagadish.pampatwar@gmail.com', resumeUrl: '/resume.pdf', linkedin: '', github: '',
+  lede, resumeUrl: '/resume.pdf', linkedin: 'https://www.linkedin.com/in/jagadish-pampatwar-8b5904182/', github: '',   // no email: see Content rules
   howIArchitect: [{ n: '01', title: 'Modernize', line: '…', tag: 'JAVA' }, /* 4 rows */],
   coreStack: ['Java', 'Spring Boot', 'Kafka', 'Kubernetes', 'Azure OpenAI'],
   work: [{ theme: 'sand' | 'steel', label, index, big: [line1, line2], flow: [a, b, end], name, kicker, title, text, tags: [], details: [] }],
@@ -77,13 +77,13 @@ Rules:
 
 - Facts come **only** from the résumé. Don't invent metrics, clients, team sizes or dates.
 - The $1M is "approximately", so write "about" or "~". Never "over" or "more than".
-- **No phone number** on the site, only email.
+- **No phone number and no email address** on the site (no `mailto:` links, nothing in JSON-LD or meta tags). Jagadish asked for this. Visitors reach him through the note form or LinkedIn.
 - The headline, lede, case-card lines, principles and contact copy are drafted in Jagadish's voice. Keep them unless the user edits them.
 - "Open to architect roles" assumes he's looking. Confirm with the user, and remove it if not.
 
 **Placeholders to list in your final summary if still empty:**
 - `/public/resume.pdf` (three links point to it)
-- LinkedIn URL and GitHub URL (add them to the hero bar beside Email, matching the reference site)
+- GitHub URL (goes in the hero bar beside LinkedIn). LinkedIn is done: https://www.linkedin.com/in/jagadish-pampatwar-8b5904182/
 - optional: a headshot (the design doesn't need one)
 
 ## Form
@@ -93,11 +93,11 @@ The note form sends through **[Web3Forms](https://web3forms.com)** (free, no bac
 - It posts to `https://api.web3forms.com/submit` with `fetch` (JSON, `Accept: application/json`). Fields: `name`, `email`, `message`, `replyto` (the visitor's email), plus hidden `access_key`, `subject` ("New message from jagadish portfolio"), `from_name` ("Portfolio contact form") and a visually hidden honeypot checkbox `botcheck`.
 - Before sending, it checks the fields and lists only the missing ones ("Please add your name, a valid email, a message"), then focuses the first.
 - While sending, the button is disabled and reads "Sending…".
-- Success shows **only** when the response is OK and `json.success` is `true`, then the form resets. Anything else shows the error line with Jagadish's email address.
+- Success shows **only** when the response is OK and `json.success` is `true`, then the form resets. Anything else shows the error line, which links to his LinkedIn (new tab). His email address is not shown anywhere on the site.
 - Status text is in an `aria-live="polite"` element: success in amber, error in `#ff9b8a`.
 
 **Setup (one time):**
-1. Go to https://web3forms.com, enter **Jagadish's email** (jagadish.pampatwar@gmail.com) and create an access key. Messages go to the email the key was created with.
+1. Go to https://web3forms.com, enter **Jagadish's email address** and create an access key. Messages go to the email the key was created with.
 2. Locally, copy `.env.example` to `.env` and set `PUBLIC_WEB3FORMS_KEY=<the key>`.
 3. On Vercel, go to Project → Settings → Environment Variables, add `PUBLIC_WEB3FORMS_KEY` with the same value for Production (and Preview), then redeploy. The key is read at build time.
 4. After deploying, send one test message from the live site and check that it arrives in Jagadish's inbox.

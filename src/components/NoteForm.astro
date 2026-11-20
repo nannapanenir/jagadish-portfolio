@@ -17,7 +17,10 @@ if (!accessKey) console.warn('\n[form] PUBLIC_WEB3FORMS_KEY is not set: the note
   data-missing-message={f.missing.message}
   data-sending={f.sending}
   data-success={f.success}
-  data-error={f.error}
+  data-error-before={f.errorBefore}
+  data-error-link={f.errorLink}
+  data-error-after={f.errorAfter}
+  data-error-href={profile.linkedin}
 >
   <input type="hidden" name="access_key" value={accessKey}>
   <input type="hidden" name="subject" value={f.subject}>

@@ -9,7 +9,7 @@ const c = profile.contact;
       <p class="label"><b>{c.n}</b> / {c.label}</p>
       <h2 id="c-h">{c.heading[0]}<br>{c.heading[1]}<br><em>{c.heading[2]}</em></h2>
       <p class="contact__lede">{c.lede}</p>
-      <div class="contact__links"><a class="mail arrow-link" href={`mailto:${profile.email}`}>{profile.email} <span aria-hidden="true">↗</span></a></div>
+      {profile.linkedin && <div class="contact__links"><a class="mail arrow-link" href={profile.linkedin} target="_blank" rel="me noopener noreferrer">{c.linkedinLink} <span aria-hidden="true">↗</span></a></div>}
     </div>
     <NoteForm />
   </div>
